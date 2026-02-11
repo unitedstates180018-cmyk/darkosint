@@ -175,20 +175,10 @@ alert("Enter login details");
 }
 }
 
-function getIP(){
-fetch("https://ipapi.co/json/")
-.then(res=>res.json())
-.then(data=>{
-let info=`
-Your IP: ${data.ip}<br>
-City: ${data.city}<br>
-Country: ${data.country_name}<br>
-Network: ${data.org}<br><br>
-`;
-document.getElementById("terminal").innerHTML+=info;
-
-showMap(data.latitude,data.longitude);
-});
+function showMap(lat,lon){
+let map = document.getElementById("map");
+map.src = "https://www.google.com/maps?q="+lat+","+lon+"&output=embed";
+map.style.display="block";
 }
 
 function startHack(){
