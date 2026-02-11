@@ -1,80 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DARK OSINT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
-background:black;
+background:#000;
 color:#00ffcc;
 font-family:monospace;
 text-align:center;
 margin:0;
-padding:0;
+overflow:hidden;
 }
 
 header{
-background:#000;
 padding:20px;
-font-size:28px;
+font-size:30px;
 color:#00ffcc;
-box-shadow:0 0 20px #00ffcc;
+text-shadow:0 0 20px #00ffcc;
+border-bottom:1px solid #00ffcc;
+}
+
+.typing{
+font-size:22px;
+margin-top:40px;
+height:40px;
 }
 
 .container{
-margin-top:50px;
+margin-top:30px;
 }
 
 .btn{
 display:block;
-width:250px;
-margin:15px auto;
+width:260px;
+margin:12px auto;
 padding:15px;
-background:#00ffcc;
-color:black;
-font-weight:bold;
-border:none;
-border-radius:10px;
+background:black;
+color:#00ffcc;
+border:1px solid #00ffcc;
 font-size:18px;
+border-radius:8px;
 cursor:pointer;
 transition:0.3s;
 }
 
 .btn:hover{
-background:black;
-color:#00ffcc;
-border:1px solid #00ffcc;
-box-shadow:0 0 15px #00ffcc;
+background:#00ffcc;
+color:black;
+box-shadow:0 0 20px #00ffcc;
 }
 
-.footer{
-margin-top:80px;
-padding:20px;
+footer{
+position:fixed;
+bottom:0;
+width:100%;
+padding:10px;
 color:#aaa;
+font-size:14px;
+border-top:1px solid #00ffcc;
 }
 </style>
 </head>
 
 <body>
 
-<header>⚡ DARK OSINT ⚡</header>
+<header>⚡ DARK OSINT SYSTEM ⚡</header>
+
+<div class="typing" id="typing"></div>
 
 <div class="container">
-<h2>Welcome to Dark OSINT Tools</h2>
-
-<button class="btn">IP Lookup</button>
-<button class="btn">Email Lookup</button>
-<button class="btn">Username Search</button>
-<button class="btn">Phone Lookup</button>
-<button class="btn">Domain Info</button>
-
+<button class="btn">IP LOOKUP</button>
+<button class="btn">EMAIL LOOKUP</button>
+<button class="btn">USERNAME SEARCH</button>
+<button class="btn">PHONE LOOKUP</button>
+<button class="btn">DOMAIN INFO</button>
 </div>
 
-<div class="footer">
-<p>Demo Hacker Style Website</p>
-</div>
+<footer>Anonymous Hacker Interface</footer>
+
+<script>
+let text="Accessing Secure OSINT Database...";
+let i=0;
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,50);
+}
+}
+typing();
+</script>
 
 </body>
 </html>
