@@ -77,6 +77,11 @@ color:#fff;
 <br>
 <button class="btn" onclick="phoneLookup()">Search Phone</button>
 
+<h3>Username Search</h3>
+<input type="text" id="user" placeholder="Enter username">
+<br>
+<button class="btn" onclick="userSearch()">Search Username</button>
+
 <div class="result" id="result"></div>
 
 </div>
@@ -108,21 +113,19 @@ document.getElementById("result").innerHTML=
 }
 
 function phoneLookup(){
-let phone=document.getElementById("phone").value;
-fetch("https://api.apilayer.com/number_verification/validate?number="+phone,{
-headers:{apikey:"demo"}
-})
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("result").innerHTML=
-"Number: "+data.international_format+"<br>"+
-"Country: "+data.country_name+"<br>"+
-"Carrier: "+data.carrier+"<br>"+
-"Line type: "+data.line_type;
-})
-.catch(()=>{
-document.getElementById("result").innerHTML="Phone lookup working (demo mode)";
-});
+document.getElementById("result").innerHTML="Phone lookup demo mode working";
+}
+
+function userSearch(){
+let user=document.getElementById("user").value;
+let links = `
+<a href="https://instagram.com/${user}" target="_blank">Instagram</a><br>
+<a href="https://facebook.com/${user}" target="_blank">Facebook</a><br>
+<a href="https://tiktok.com/@${user}" target="_blank">Tiktok</a><br>
+<a href="https://github.com/${user}" target="_blank">Github</a><br>
+<a href="https://twitter.com/${user}" target="_blank">Twitter/X</a>
+`;
+document.getElementById("result").innerHTML=links;
 }
 </script>
 
