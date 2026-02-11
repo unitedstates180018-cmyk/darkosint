@@ -2,64 +2,83 @@
 <html>
 <head>
 <title>DARK OSINT</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{background:#000;color:#00ffcc;font-family:monospace;text-align:center;margin:0;}
-header{padding:20px;font-size:28px;text-shadow:0 0 20px #00ffcc;border-bottom:1px solid #00ffcc;}
-.container{margin-top:30px;}
-input{padding:12px;width:260px;background:black;border:1px solid #00ffcc;color:#00ffcc;font-size:16px;border-radius:6px;}
-.btn{padding:12px 25px;margin:10px;background:black;color:#00ffcc;border:1px solid #00ffcc;font-size:16px;border-radius:6px;}
-.btn:hover{background:#00ffcc;color:black;}
-.result{margin-top:20px;color:#fff;}
-#adminPanel{display:none;margin-top:40px;}
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+text-align:center;
+}
+
+input{
+padding:12px;
+background:black;
+border:1px solid #00ff00;
+color:#00ff00;
+}
+
+button{
+padding:12px;
+background:#00ff00;
+border:none;
+margin-top:10px;
+}
+
+#panel{
+display:none;
+margin-top:40px;
+}
+
+.card{
+border:1px solid #00ff00;
+margin:15px;
+padding:20px;
+}
 </style>
 </head>
 
 <body>
 
-<header>⚡ DARK OSINT SYSTEM ⚡</header>
+<h1>☠ DARK OSINT CONTROL ☠</h1>
 
-<div class="container">
+<input type="password" id="pass" placeholder="Admin password"><br>
+<button onclick="login()">ENTER</button>
 
-<h3>Username Search</h3>
-<input type="text" id="user" placeholder="Enter username">
-<br>
-<button class="btn" onclick="userSearch()">Search</button>
+<div id="panel">
 
-<br><br>
-<button class="btn" onclick="adminLogin()">🔒 Admin Login</button>
+<h2>🧠 Hacker Dashboard</h2>
 
-<div class="result" id="result"></div>
-
+<div class="card">
+<h3>🌐 Site Status</h3>
+<p>Online & Running</p>
 </div>
 
-<div id="adminPanel">
-<h2>🛡 ADMIN PANEL</h2>
-<p>Welcome Boss 😈</p>
-<button class="btn">Visitor Data</button>
-<button class="btn">Site Control</button>
-<button class="btn">Server Access</button>
+<div class="card">
+<h3>👁 Visitors</h3>
+<p>Tracking soon...</p>
+</div>
+
+<div class="card">
+<h3>💰 Adsense Income</h3>
+<p>Ready for ads</p>
+</div>
+
+<div class="card">
+<h3>🔎 OSINT Tools</h3>
+<p>Coming next update</p>
+</div>
+
 </div>
 
 <script>
-function userSearch(){
-let user=document.getElementById("user").value;
-let links = `
-<a href="https://instagram.com/${user}" target="_blank">Instagram</a><br>
-<a href="https://facebook.com/${user}" target="_blank">Facebook</a><br>
-<a href="https://github.com/${user}" target="_blank">Github</a>
-`;
-document.getElementById("result").innerHTML=links;
-}
-
-function adminLogin(){
-let pass=prompt("Enter Admin Password");
-if(pass==="12345"){
-document.getElementById("adminPanel").style.display="block";
-alert("Admin Login Success 😈");
+function login(){
+var p=document.getElementById("pass").value;
+if(p=="1234"){
+document.getElementById("panel").style.display="block";
+alert("Welcome Admin 😈");
 }else{
-alert("Wrong Password");
+alert("Wrong password");
 }
 }
 </script>
