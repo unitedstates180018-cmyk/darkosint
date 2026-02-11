@@ -187,6 +187,19 @@ document.getElementById("terminal").innerHTML+=info+"<br>";
 }
 
 function startHack(){
+  function getIP(){
+fetch("https://ipapi.co/json/")
+.then(res=>res.json())
+.then(data=>{
+let info=`
+Your IP: ${data.ip}<br>
+City: ${data.city}<br>
+Country: ${data.country_name}<br>
+Network: ${data.org}<br><br>
+`;
+document.getElementById("terminal").innerHTML+=info;
+});
+  }
 let target=document.getElementById("search").value;
 let term=document.getElementById("terminal");
 
