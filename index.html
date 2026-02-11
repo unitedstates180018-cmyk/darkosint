@@ -49,84 +49,58 @@ color:black;
 box-shadow:0 0 15px #00ffcc;
 }
 
-.result{
-margin-top:20px;
-color:#fff;
-}
+.result{margin-top:20px;color:#fff;}
+#adminPanel{display:none;margin-top:40px;}
 </style>
 </head>
 
 <body>
 
-<header>⚡ DARK OSINT TOOLS ⚡</header>
+<header>⚡ DARK OSINT SYSTEM ⚡</header>
 
 <div class="container">
-
-<h3>IP Lookup</h3>
-<input type="text" id="ip" placeholder="Enter IP">
-<br>
-<button class="btn" onclick="ipLookup()">Search IP</button>
-
-<h3>Email Check</h3>
-<input type="text" id="email" placeholder="Enter Email">
-<br>
-<button class="btn" onclick="emailCheck()">Check Email</button>
-
-<h3>Phone Lookup</h3>
-<input type="text" id="phone" placeholder="Enter phone with country code">
-<br>
-<button class="btn" onclick="phoneLookup()">Search Phone</button>
 
 <h3>Username Search</h3>
 <input type="text" id="user" placeholder="Enter username">
 <br>
-<button class="btn" onclick="userSearch()">Search Username</button>
+<button class="btn" onclick="userSearch()">Search</button>
 
 <div class="result" id="result"></div>
 
 </div>
 
+<!-- SECRET ADMIN PANEL -->
+<div id="adminPanel">
+<h2>🛡 ADMIN CONTROL PANEL</h2>
+<p>Welcome Boss 😈</p>
+<button class="btn">Visitor Data</button>
+<button class="btn">Site Control</button>
+<button class="btn">Server Access</button>
+</div>
+
 <script>
-function ipLookup(){
-let ip=document.getElementById("ip").value;
-fetch("https://ipapi.co/"+ip+"/json/")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("result").innerHTML=
-"IP: "+data.ip+"<br>"+
-"City: "+data.city+"<br>"+
-"Country: "+data.country_name+"<br>"+
-"Org: "+data.org;
-});
-}
-
-function emailCheck(){
-let email=document.getElementById("email").value;
-fetch("https://api.eva.pingutil.com/email?email="+email)
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("result").innerHTML=
-"Email: "+data.data.email_address+"<br>"+
-"Valid: "+data.data.deliverable+"<br>"+
-"Domain: "+data.data.domain;
-});
-}
-
-function phoneLookup(){
-document.getElementById("result").innerHTML="Phone lookup demo mode working";
-}
-
 function userSearch(){
 let user=document.getElementById("user").value;
 let links = `
 <a href="https://instagram.com/${user}" target="_blank">Instagram</a><br>
 <a href="https://facebook.com/${user}" target="_blank">Facebook</a><br>
-<a href="https://tiktok.com/@${user}" target="_blank">Tiktok</a><br>
-<a href="https://github.com/${user}" target="_blank">Github</a><br>
-<a href="https://twitter.com/${user}" target="_blank">Twitter/X</a>
+<a href="https://github.com/${user}" target="_blank">Github</a>
 `;
 document.getElementById("result").innerHTML=links;
 }
+
+/* SECRET LOGIN */
+document.addEventListener("keydown", function(e){
+if(e.ctrlKey && e.key==="m"){
+let pass=prompt("Enter Admin Password");
+if(pass==="12345"){
+document.getElementById("adminPanel").style.display="block";
+alert("Admin Access Granted 😈");
+}else{
+alert("Wrong Password");
+}
+}
+});
 </script>
 
 </body>
