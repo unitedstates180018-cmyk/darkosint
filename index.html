@@ -2,154 +2,106 @@
 <html>
 <head>
 <title>DARK OSINT PRO</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
-background:#020202;
+background:black;
 color:#00ffcc;
 font-family:monospace;
 text-align:center;
-margin:0;
-}
-
-header{
-padding:18px;
-font-size:26px;
-border-bottom:1px solid #00ffcc;
-box-shadow:0 0 10px #00ffcc;
-}
-
-input{
-padding:12px;
-width:80%;
-max-width:320px;
-background:black;
-border:1px solid #00ffcc;
-color:#00ffcc;
-margin:6px;
-}
-
-button{
-padding:12px 20px;
-background:#00ffcc;
-border:none;
-margin:6px;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-background:#00ffaa;
 }
 
 .box{
 border:1px solid #00ffcc;
-margin:20px;
 padding:20px;
-border-radius:12px;
-box-shadow:0 0 15px #00ffcc33;
+margin:20px;
+border-radius:10px;
+box-shadow:0 0 20px #00ffcc;
 }
 
-#panel{display:none;}
+input{
+padding:10px;
+width:80%;
+background:black;
+border:1px solid #00ffcc;
+color:#00ffcc;
+margin:10px;
+}
 
-.visitor{
-margin-top:10px;
-font-size:14px;
+button{
+padding:10px 20px;
+background:#00ffcc;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+#adminPanel{
+display:none;
 }
 </style>
 </head>
 
 <body>
 
-<header>⚡ DARK OSINT PRO DASHBOARD ⚡</header>
+<h1>☠ DARK OSINT PRO ☠</h1>
 
-<h3>🔐 ADMIN LOGIN</h3>
-<input type="password" id="pass" placeholder="Enter admin password"><br>
-<button onclick="login()">ENTER</button>
-
-<div class="visitor">
-Visitors: <span id="visits">0</span>
+<div class="box" id="loginBox">
+<h2>Login</h2>
+<input type="text" id="user" placeholder="Enter Username"><br>
+<input type="password" id="pass" placeholder="Enter Password"><br>
+<button onclick="login()">Login</button>
 </div>
 
-<div id="panel">
-
-<div class="box">
-<h3>🌐 IP Lookup (Real)</h3>
-<input type="text" id="ip" placeholder="Enter IP">
+<div class="box" id="main" style="display:none;">
+<h2>OSINT Search</h2>
+<input type="text" id="search" placeholder="Enter Username / Email / Phone">
 <br>
-<button onclick="ipLookup()">Search</button>
-<p id="ipResult"></p>
+<button onclick="search()">Search</button>
+
+<h3 id="result"></h3>
 </div>
 
-<div class="box">
-<h3>📧 Email Check</h3>
-<input type="text" id="email" placeholder="Enter email">
-<br>
-<button onclick="emailCheck()">Check</button>
-<p id="emailResult"></p>
-</div>
-
-<div class="box">
-<h3>👤 Username Search</h3>
-<input type="text" id="user" placeholder="Enter username">
-<br>
-<button onclick="userSearch()">Search</button>
-<p id="userResult"></p>
-</div>
-
-<div class="box">
-<h3>💰 Adsense Income</h3>
-<p>Apply adsense and paste ad code here</p>
-</div>
-
+<div class="box" id="adminPanel">
+<h2>ADMIN PANEL</h2>
+<button onclick="showHistory()">Show User History</button>
+<div id="history"></div>
 </div>
 
 <script>
+let adminUser="admin";
+let adminPass="1234";
+
 function login(){
-let p=document.getElementById("pass").value;
-if(p=="akash"){
-document.getElementById("panel").style.display="block";
-alert("Admin Access Granted 😈");
-}else{
-alert("Wrong Password");
-}
-}
-
-// real ip lookup
-function ipLookup(){
-let ip=document.getElementById("ip").value;
-fetch("https://ipapi.co/"+ip+"/json/")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("ipResult").innerHTML=
-"Country: "+data.country_name+"<br>"+
-"City: "+data.city+"<br>"+
-"ISP: "+data.org;
-});
-}
-
-// email demo
-function emailCheck(){
-let email=document.getElementById("email").value;
-document.getElementById("emailResult").innerHTML=
-"Email: "+email+"<br>Status: Valid (demo)";
-}
-
-// username search
-function userSearch(){
 let u=document.getElementById("user").value;
-document.getElementById("userResult").innerHTML=
-`<a href="https://instagram.com/${u}" target="_blank">Instagram</a><br>
-<a href="https://github.com/${u}" target="_blank">Github</a><br>
-<a href="https://facebook.com/${u}" target="_blank">Facebook</a>`;
+let p=document.getElementById("pass").value;
+
+if(u==adminUser && p==adminPass){
+alert("Admin Login Success");
+document.getElementById("loginBox").style.display="none";
+document.getElementById("main").style.display="block";
+document.getElementById("adminPanel").style.display="block";
+}else if(u!="" && p!=""){
+alert("User Login Success");
+document.getElementById("loginBox").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+alert("Enter details");
+}
 }
 
-// visitor counter
-if(localStorage.v){
-localStorage.v=parseInt(localStorage.v)+1;
-}else{localStorage.v=1;}
-document.getElementById("visits").innerText=localStorage.v;
+function search(){
+let s=document.getElementById("search").value;
+document.getElementById("result").innerHTML="Searching data of: "+s+" ...";
+
+let old=localStorage.getItem("history") || "";
+localStorage.setItem("history", old + "<br>"+s);
+}
+
+function showHistory(){
+let data=localStorage.getItem("history");
+document.getElementById("history").innerHTML=data;
+}
 </script>
 
 </body>
