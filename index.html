@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DARK OSINT PRO</title>
 
 <style>
@@ -9,62 +10,78 @@ background:black;
 color:#00ffcc;
 font-family:monospace;
 text-align:center;
+margin:0;
+padding:0;
+}
+
+h1{
+text-shadow:0 0 20px #00ffcc;
 }
 
 .box{
 border:1px solid #00ffcc;
-padding:20px;
-margin:20px;
+padding:15px;
+margin:15px;
 border-radius:10px;
 box-shadow:0 0 20px #00ffcc;
 }
 
 input{
-padding:10px;
-width:80%;
+padding:12px;
+width:90%;
 background:black;
 border:1px solid #00ffcc;
 color:#00ffcc;
 margin:10px;
+font-size:16px;
 }
 
 button{
-padding:10px 20px;
+padding:12px 25px;
 background:#00ffcc;
 border:none;
-cursor:pointer;
 font-weight:bold;
+font-size:16px;
+margin-top:10px;
 }
 
-#adminPanel{
-display:none;
+#terminal{
+text-align:left;
+height:200px;
+overflow:auto;
+border:1px solid #00ffcc;
+padding:10px;
+margin-top:20px;
+box-shadow:0 0 15px #00ffcc;
 }
+
+#adminPanel{display:none;}
+#main{display:none;}
 </style>
 </head>
 
 <body>
 
-<h1>☠ DARK OSINT PRO ☠</h1>
+<h1>☠ DARK OSINT TERMINAL ☠</h1>
 
 <div class="box" id="loginBox">
-<h2>Login</h2>
-<input type="text" id="user" placeholder="Enter Username"><br>
-<input type="password" id="pass" placeholder="Enter Password"><br>
-<button onclick="login()">Login</button>
+<h2>Secure Login</h2>
+<input type="text" id="user" placeholder="Username">
+<input type="password" id="pass" placeholder="Password">
+<button onclick="login()">ENTER</button>
 </div>
 
-<div class="box" id="main" style="display:none;">
-<h2>OSINT Search</h2>
-<input type="text" id="search" placeholder="Enter Username / Email / Phone">
-<br>
-<button onclick="search()">Search</button>
+<div class="box" id="main">
+<h2>OSINT SEARCH</h2>
+<input type="text" id="search" placeholder="Enter username / email / phone">
+<button onclick="startHack()">SCAN TARGET</button>
 
-<h3 id="result"></h3>
+<div id="terminal"></div>
 </div>
 
 <div class="box" id="adminPanel">
 <h2>ADMIN PANEL</h2>
-<button onclick="showHistory()">Show User History</button>
+<button onclick="showHistory()">User History</button>
 <div id="history"></div>
 </div>
 
@@ -73,34 +90,60 @@ let adminUser="admin";
 let adminPass="1234";
 
 function login(){
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
+let u=user.value;
+let p=pass.value;
 
 if(u==adminUser && p==adminPass){
 alert("Admin Login Success");
-document.getElementById("loginBox").style.display="none";
-document.getElementById("main").style.display="block";
-document.getElementById("adminPanel").style.display="block";
-}else if(u!="" && p!=""){
-alert("User Login Success");
-document.getElementById("loginBox").style.display="none";
-document.getElementById("main").style.display="block";
+loginBox.style.display="none";
+main.style.display="block";
+adminPanel.style.display="block";
+}
+else if(u!="" && p!=""){
+loginBox.style.display="none";
+main.style.display="block";
+}
+else{
+alert("Enter login details");
+}
+}
+
+function startHack(){
+let target=document.getElementById("search").value;
+let term=document.getElementById("terminal");
+
+term.innerHTML="";
+let lines=[
+"Initializing dark engine...",
+"Connecting to deep web...",
+"Bypassing firewall...",
+"Tracking IP address...",
+"Accessing database...",
+"Collecting information...",
+"Target Found: "+target,
+"Email: hidden@mail.com",
+"Phone: +91XXXXXXXX",
+"Location: India",
+"Scan Complete ✔"
+];
+
+let i=0;
+let interval=setInterval(()=>{
+if(i<lines.length){
+term.innerHTML+=lines[i]+"<br>";
+term.scrollTop=term.scrollHeight;
+i++;
 }else{
-alert("Enter details");
+clearInterval(interval);
 }
-}
+},600);
 
-function search(){
-let s=document.getElementById("search").value;
-document.getElementById("result").innerHTML="Searching data of: "+s+" ...";
-
-let old=localStorage.getItem("history") || "";
-localStorage.setItem("history", old + "<br>"+s);
+let old=localStorage.getItem("history")||"";
+localStorage.setItem("history",old+"<br>"+target);
 }
 
 function showHistory(){
-let data=localStorage.getItem("history");
-document.getElementById("history").innerHTML=data;
+history.innerHTML=localStorage.getItem("history");
 }
 </script>
 
