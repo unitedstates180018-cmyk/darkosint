@@ -5,50 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{
-background:#000;
-color:#00ffcc;
-font-family:monospace;
-text-align:center;
-margin:0;
-}
-
-header{
-padding:20px;
-font-size:28px;
-text-shadow:0 0 20px #00ffcc;
-border-bottom:1px solid #00ffcc;
-}
-
+body{background:#000;color:#00ffcc;font-family:monospace;text-align:center;margin:0;}
+header{padding:20px;font-size:28px;text-shadow:0 0 20px #00ffcc;border-bottom:1px solid #00ffcc;}
 .container{margin-top:30px;}
-
-input{
-padding:12px;
-width:260px;
-background:black;
-border:1px solid #00ffcc;
-color:#00ffcc;
-font-size:16px;
-border-radius:6px;
-}
-
-.btn{
-padding:12px 25px;
-margin:10px;
-background:black;
-color:#00ffcc;
-border:1px solid #00ffcc;
-font-size:16px;
-cursor:pointer;
-border-radius:6px;
-}
-
-.btn:hover{
-background:#00ffcc;
-color:black;
-box-shadow:0 0 15px #00ffcc;
-}
-
+input{padding:12px;width:260px;background:black;border:1px solid #00ffcc;color:#00ffcc;font-size:16px;border-radius:6px;}
+.btn{padding:12px 25px;margin:10px;background:black;color:#00ffcc;border:1px solid #00ffcc;font-size:16px;border-radius:6px;}
+.btn:hover{background:#00ffcc;color:black;}
 .result{margin-top:20px;color:#fff;}
 #adminPanel{display:none;margin-top:40px;}
 </style>
@@ -65,13 +27,15 @@ box-shadow:0 0 15px #00ffcc;
 <br>
 <button class="btn" onclick="userSearch()">Search</button>
 
+<br><br>
+<button class="btn" onclick="adminLogin()">🔒 Admin Login</button>
+
 <div class="result" id="result"></div>
 
 </div>
 
-<!-- SECRET ADMIN PANEL -->
 <div id="adminPanel">
-<h2>🛡 ADMIN CONTROL PANEL</h2>
+<h2>🛡 ADMIN PANEL</h2>
 <p>Welcome Boss 😈</p>
 <button class="btn">Visitor Data</button>
 <button class="btn">Site Control</button>
@@ -89,18 +53,15 @@ let links = `
 document.getElementById("result").innerHTML=links;
 }
 
-/* SECRET LOGIN */
-document.addEventListener("keydown", function(e){
-if(e.ctrlKey && e.key==="m"){
+function adminLogin(){
 let pass=prompt("Enter Admin Password");
 if(pass==="12345"){
 document.getElementById("adminPanel").style.display="block";
-alert("Admin Access Granted 😈");
+alert("Admin Login Success 😈");
 }else{
 alert("Wrong Password");
 }
 }
-});
 </script>
 
 </body>
