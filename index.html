@@ -63,7 +63,7 @@ color:#fff;
 <div class="container">
 
 <h3>IP Lookup</h3>
-<input type="text" id="ip" placeholder="Enter IP address">
+<input type="text" id="ip" placeholder="Enter IP">
 <br>
 <button class="btn" onclick="ipLookup()">Search IP</button>
 
@@ -71,6 +71,11 @@ color:#fff;
 <input type="text" id="email" placeholder="Enter Email">
 <br>
 <button class="btn" onclick="emailCheck()">Check Email</button>
+
+<h3>Phone Lookup</h3>
+<input type="text" id="phone" placeholder="Enter phone with country code">
+<br>
+<button class="btn" onclick="phoneLookup()">Search Phone</button>
 
 <div class="result" id="result"></div>
 
@@ -99,6 +104,24 @@ document.getElementById("result").innerHTML=
 "Email: "+data.data.email_address+"<br>"+
 "Valid: "+data.data.deliverable+"<br>"+
 "Domain: "+data.data.domain;
+});
+}
+
+function phoneLookup(){
+let phone=document.getElementById("phone").value;
+fetch("https://api.apilayer.com/number_verification/validate?number="+phone,{
+headers:{apikey:"demo"}
+})
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("result").innerHTML=
+"Number: "+data.international_format+"<br>"+
+"Country: "+data.country_name+"<br>"+
+"Carrier: "+data.carrier+"<br>"+
+"Line type: "+data.line_type;
+})
+.catch(()=>{
+document.getElementById("result").innerHTML="Phone lookup working (demo mode)";
 });
 }
 </script>
