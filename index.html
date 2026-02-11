@@ -11,86 +11,96 @@ color:#00ffcc;
 font-family:monospace;
 text-align:center;
 margin:0;
-overflow:hidden;
 }
 
 header{
 padding:20px;
-font-size:30px;
-color:#00ffcc;
+font-size:28px;
 text-shadow:0 0 20px #00ffcc;
 border-bottom:1px solid #00ffcc;
 }
 
-.typing{
-font-size:22px;
-margin-top:40px;
-height:40px;
-}
+.container{margin-top:30px;}
 
-.container{
-margin-top:30px;
+input{
+padding:12px;
+width:260px;
+background:black;
+border:1px solid #00ffcc;
+color:#00ffcc;
+font-size:16px;
+border-radius:6px;
 }
 
 .btn{
-display:block;
-width:260px;
-margin:12px auto;
-padding:15px;
+padding:12px 25px;
+margin:10px;
 background:black;
 color:#00ffcc;
 border:1px solid #00ffcc;
-font-size:18px;
-border-radius:8px;
+font-size:16px;
 cursor:pointer;
-transition:0.3s;
+border-radius:6px;
 }
 
 .btn:hover{
 background:#00ffcc;
 color:black;
-box-shadow:0 0 20px #00ffcc;
+box-shadow:0 0 15px #00ffcc;
 }
 
-footer{
-position:fixed;
-bottom:0;
-width:100%;
-padding:10px;
-color:#aaa;
-font-size:14px;
-border-top:1px solid #00ffcc;
+.result{
+margin-top:20px;
+color:#fff;
 }
 </style>
 </head>
 
 <body>
 
-<header>⚡ DARK OSINT SYSTEM ⚡</header>
-
-<div class="typing" id="typing"></div>
+<header>⚡ DARK OSINT TOOLS ⚡</header>
 
 <div class="container">
-<button class="btn">IP LOOKUP</button>
-<button class="btn">EMAIL LOOKUP</button>
-<button class="btn">USERNAME SEARCH</button>
-<button class="btn">PHONE LOOKUP</button>
-<button class="btn">DOMAIN INFO</button>
+
+<h3>IP Lookup</h3>
+<input type="text" id="ip" placeholder="Enter IP address">
+<br>
+<button class="btn" onclick="ipLookup()">Search IP</button>
+
+<h3>Email Check</h3>
+<input type="text" id="email" placeholder="Enter Email">
+<br>
+<button class="btn" onclick="emailCheck()">Check Email</button>
+
+<div class="result" id="result"></div>
+
 </div>
 
-<footer>Anonymous Hacker Interface</footer>
-
 <script>
-let text="Accessing Secure OSINT Database...";
-let i=0;
-function typing(){
-if(i<text.length){
-document.getElementById("typing").innerHTML+=text.charAt(i);
-i++;
-setTimeout(typing,50);
+function ipLookup(){
+let ip=document.getElementById("ip").value;
+fetch("https://ipapi.co/"+ip+"/json/")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("result").innerHTML=
+"IP: "+data.ip+"<br>"+
+"City: "+data.city+"<br>"+
+"Country: "+data.country_name+"<br>"+
+"Org: "+data.org;
+});
 }
+
+function emailCheck(){
+let email=document.getElementById("email").value;
+fetch("https://api.eva.pingutil.com/email?email="+email)
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("result").innerHTML=
+"Email: "+data.data.email_address+"<br>"+
+"Valid: "+data.data.deliverable+"<br>"+
+"Domain: "+data.data.domain;
+});
 }
-typing();
 </script>
 
 </body>
