@@ -1,143 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>DARK OSINT SYSTEM</title>
-
+<title>DARK OSINT PRO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
-background:black;
+background:#020202;
 color:#00ffcc;
 font-family:monospace;
 text-align:center;
+margin:0;
 }
 
-h1{
-margin-top:20px;
+header{
+padding:18px;
+font-size:26px;
+border-bottom:1px solid #00ffcc;
+box-shadow:0 0 10px #00ffcc;
 }
 
 input{
 padding:12px;
 width:80%;
-max-width:300px;
+max-width:320px;
 background:black;
 border:1px solid #00ffcc;
 color:#00ffcc;
-margin:8px;
+margin:6px;
 }
 
 button{
 padding:12px 20px;
 background:#00ffcc;
 border:none;
-margin:8px;
+margin:6px;
 font-weight:bold;
+cursor:pointer;
 }
 
-.tool{
+button:hover{
+background:#00ffaa;
+}
+
+.box{
 border:1px solid #00ffcc;
 margin:20px;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
+box-shadow:0 0 15px #00ffcc33;
 }
 
-#adminPanel{
-display:none;
-}
+#panel{display:none;}
 
-.counter{
-margin-top:20px;
-font-size:18px;
+.visitor{
+margin-top:10px;
+font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>⚡ DARK OSINT SYSTEM ⚡</h1>
+<header>⚡ DARK OSINT PRO DASHBOARD ⚡</header>
 
 <h3>🔐 ADMIN LOGIN</h3>
 <input type="password" id="pass" placeholder="Enter admin password"><br>
 <button onclick="login()">ENTER</button>
 
-<div class="counter">
+<div class="visitor">
 Visitors: <span id="visits">0</span>
 </div>
 
-<div id="adminPanel">
+<div id="panel">
 
-<h2>🧠 HACKER DASHBOARD</h2>
+<div class="box">
+<h3>🌐 IP Lookup (Real)</h3>
+<input type="text" id="ip" placeholder="Enter IP">
+<br>
+<button onclick="ipLookup()">Search</button>
+<p id="ipResult"></p>
+</div>
 
-<div class="tool">
-<h3>📧 Email Search</h3>
+<div class="box">
+<h3>📧 Email Check</h3>
 <input type="text" id="email" placeholder="Enter email">
-<button onclick="emailSearch()">Search</button>
+<br>
+<button onclick="emailCheck()">Check</button>
 <p id="emailResult"></p>
 </div>
 
-<div class="tool">
+<div class="box">
 <h3>👤 Username Search</h3>
 <input type="text" id="user" placeholder="Enter username">
+<br>
 <button onclick="userSearch()">Search</button>
 <p id="userResult"></p>
 </div>
 
-<div class="tool">
-<h3>🌐 IP Lookup</h3>
-<input type="text" id="ip" placeholder="Enter IP">
-<button onclick="ipSearch()">Search</button>
-<p id="ipResult"></p>
-</div>
-
-<div class="tool">
-<h3>💰 Adsense Ready</h3>
-<p>Connect ads after approval</p>
+<div class="box">
+<h3>💰 Adsense Income</h3>
+<p>Apply adsense and paste ad code here</p>
 </div>
 
 </div>
 
 <script>
-// LOGIN
 function login(){
-var p=document.getElementById("pass").value;
-
-if(p=="1234"){
-document.getElementById("adminPanel").style.display="block";
-alert("Welcome Admin 😈");
+let p=document.getElementById("pass").value;
+if(p=="akash"){
+document.getElementById("panel").style.display="block";
+alert("Admin Access Granted 😈");
 }else{
 alert("Wrong Password");
 }
 }
 
-// EMAIL SEARCH
-function emailSearch(){
-var email=document.getElementById("email").value;
-document.getElementById("emailResult").innerHTML=
-"Searching: "+email+"<br>Result: Found on social media (demo)";
-}
-
-// USER SEARCH
-function userSearch(){
-var user=document.getElementById("user").value;
-document.getElementById("userResult").innerHTML=
-"Username: "+user+"<br>Instagram: Found<br>Facebook: Found (demo)";
-}
-
-// IP SEARCH
-function ipSearch(){
-var ip=document.getElementById("ip").value;
+// real ip lookup
+function ipLookup(){
+let ip=document.getElementById("ip").value;
+fetch("https://ipapi.co/"+ip+"/json/")
+.then(res=>res.json())
+.then(data=>{
 document.getElementById("ipResult").innerHTML=
-"IP: "+ip+"<br>Location: India<br>ISP: Airtel (demo)";
+"Country: "+data.country_name+"<br>"+
+"City: "+data.city+"<br>"+
+"ISP: "+data.org;
+});
 }
 
-// VISITOR COUNTER
-if(localStorage.visits){
-localStorage.visits=parseInt(localStorage.visits)+1;
-}else{
-localStorage.visits=1;
+// email demo
+function emailCheck(){
+let email=document.getElementById("email").value;
+document.getElementById("emailResult").innerHTML=
+"Email: "+email+"<br>Status: Valid (demo)";
 }
-document.getElementById("visits").innerText=localStorage.visits;
+
+// username search
+function userSearch(){
+let u=document.getElementById("user").value;
+document.getElementById("userResult").innerHTML=
+`<a href="https://instagram.com/${u}" target="_blank">Instagram</a><br>
+<a href="https://github.com/${u}" target="_blank">Github</a><br>
+<a href="https://facebook.com/${u}" target="_blank">Facebook</a>`;
+}
+
+// visitor counter
+if(localStorage.v){
+localStorage.v=parseInt(localStorage.v)+1;
+}else{localStorage.v=1;}
+document.getElementById("visits").innerText=localStorage.v;
 </script>
 
 </body>
