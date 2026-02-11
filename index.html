@@ -147,5 +147,78 @@ history.innerHTML=localStorage.getItem("history");
 }
 </script>
 
+<script>
+let adminUser="admin";
+let adminPass="1234";
+
+function login(){
+let u=user.value;
+let p=pass.value;
+
+if(u==adminUser && p==adminPass){
+alert("Admin Login Success");
+loginBox.style.display="none";
+main.style.display="block";
+adminPanel.style.display="block";
+getIP();
+}
+else if(u!="" && p!=""){
+loginBox.style.display="none";
+main.style.display="block";
+getIP();
+}
+else{
+alert("Enter login details");
+}
+}
+
+function getIP(){
+fetch("https://ipapi.co/json/")
+.then(res=>res.json())
+.then(data=>{
+let info=`
+Your IP: ${data.ip}<br>
+City: ${data.city}<br>
+Country: ${data.country_name}<br>
+Network: ${data.org}<br>
+`;
+document.getElementById("terminal").innerHTML+=info+"<br>";
+});
+}
+
+function startHack(){
+let target=document.getElementById("search").value;
+let term=document.getElementById("terminal");
+
+let lines=[
+"Initializing dark engine...",
+"Connecting to deep web...",
+"Bypassing firewall...",
+"Tracking target...",
+"Accessing database...",
+"Target Found: "+target,
+"Scan Complete ✔"
+];
+
+let i=0;
+let interval=setInterval(()=>{
+if(i<lines.length){
+term.innerHTML+=lines[i]+"<br>";
+term.scrollTop=term.scrollHeight;
+i++;
+}else{
+clearInterval(interval);
+}
+},500);
+
+let old=localStorage.getItem("history")||"";
+localStorage.setItem("history",old+"<br>"+target);
+}
+
+function showHistory(){
+history.innerHTML=localStorage.getItem("history");
+}
+</script>
+  
 </body>
 </html>
